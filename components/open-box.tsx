@@ -1,20 +1,21 @@
 "use client";
 
-import PulsingCircle from "@/components/pulse-circle";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default function ClientSideComponent() {
+interface ClientSideComponentProps {
+  cooldownActive: boolean;
+  remainingTime: string | null;
+}
+
+export default function ClientSideComponent({ cooldownActive, remainingTime }: ClientSideComponentProps) {
   const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
-  const [arr, setArr] = useState([1, 2, 3, 4]); // The array of levels
+  const [arr, setArr] = useState([1, 2, 3, 4]);
+  const router = useRouter();
 
   const handleLevelClick = (level: number) => {
-    // Remove the clicked level from the array
     setArr((prevArr) => prevArr.filter((item) => item !== level));
-    setSelectedLevel(level); // Set the selected level
-  };
-
-  const handleClosePopup = () => {
-    setSelectedLevel(null); // Reset the selected level when "I'm committed" is clicked
+    setSelectedLevel(level);
   };
 
   return (
@@ -41,10 +42,24 @@ export default function ClientSideComponent() {
           <div className="fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#FBFFE4] p-8 rounded-lg shadow-lg text-black w-80 text-center">
             <h2 className="text-xl font-bold">Day {selectedLevel}</h2>
             <p className="mt-2">Goon to the rhythm</p>
-            <PulsingCircle />
+
+            {/* Display cooldown or "Go to Pledge" button */}
+            {cooldownActive ? (
+              <p className="mt-4 text-red-600 font-bold">
+                Cooldown: {remainingTime}
+              </p>
+            ) : (
+              <button
+                className="mt-4 px-4 py-2 bg-[#3D8D7A] text-white rounded-lg"
+                onClick={() => router.push("/pledge")}
+              >
+                Go to Pledge
+              </button>
+            )}
+
             <button
-              className="mt-4 px-4 py-2 bg-[#3D8D7A] text-white rounded-lg"
-              onClick={handleClosePopup}
+              className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-lg"
+              onClick={() => setSelectedLevel(null)}
             >
               I'm committed
             </button>

@@ -1,28 +1,62 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ThumbsUp, ThumbsDown, Star } from "lucide-react";
+import { ThumbsUp, ThumbsDown, Star, Timer } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
-const Pledge = ({ userId, initialStreak, initialPoints }) => {
+dayjs.extend(relativeTime);
+
+const Pledge = ({ userId, initialStreak, initialPoints, initialCooldown }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [streak, setStreak] = useState(initialStreak);
   const [points, setPoints] = useState(initialPoints);
+  const [cooldown, setCooldown] = useState(initialCooldown ? new Date(initialCooldown) : null);
   const [animationActive, setAnimationActive] = useState(false);
+  const [timeLeft, setTimeLeft] = useState("");
+
   const supabase = createClient();
 
+  useEffect(() => {
+    if (cooldown) {
+      const interval = setInterval(() => {
+        const now = new Date();
+        const diff = Math.max(0, 24 * 60 * 60 * 1000 - (now - cooldown)); // 24 hours in ms
+        setTimeLeft(diff > 0 ? formatTime(diff) : "");
+        if (diff === 0) setCooldown(null);
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [cooldown]);
+
+  const formatTime = (ms) => {
+    const hours = Math.floor(ms / (1000 * 60 * 60));
+    const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((ms % (1000 * 60)) / 1000);
+    return `${hours}h ${minutes}m ${seconds}s`;
+  };
+
   const handlePledgeClick = () => {
-    setShowPopup(true);
+    if (!cooldown) setShowPopup(true);
   };
 
   const updatePoints = async (newStreak, newPoints) => {
+    const newCooldown = new Date();
     const { error } = await supabase
       .from("points")
-      .update({ streak: newStreak, points: newPoints })
+      .update({ 
+        streak: newStreak, 
+        points: newPoints, 
+        cooldown: newCooldown.toISOString() 
+      })
       .eq("userid", userId);
 
     if (error) {
       console.error("Error updating points:", error.message);
+    } else {
+      setCooldown(newCooldown);
     }
   };
 
@@ -30,7 +64,6 @@ const Pledge = ({ userId, initialStreak, initialPoints }) => {
     setShowPopup(false);
 
     if (answer) {
-      // Increase streak and calculate new points
       const newStreak = streak + 1;
       const newPoints = points + newStreak * 10;
 
@@ -44,7 +77,6 @@ const Pledge = ({ userId, initialStreak, initialPoints }) => {
         setAnimationActive(false);
       }, 1500);
     } else {
-      // Reset streak
       setStreak(0);
       await updatePoints(0, points);
     }
@@ -59,11 +91,20 @@ const Pledge = ({ userId, initialStreak, initialPoints }) => {
 
       <button
         onClick={handlePledgeClick}
-        className="flex flex-col items-center justify-center p-6 bg-blue-500 text-white rounded-full shadow-xl text-xl font-bold hover:bg-blue-400 transition-all"
+        className={`flex flex-col items-center justify-center p-6 rounded-full shadow-xl text-xl font-bold transition-all 
+          ${cooldown ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-400"} text-white`}
+        disabled={!!cooldown}
       >
         <ThumbsUp size={40} />
-        <span className="mt-2">Pledge</span>
+        <span className="mt-2">{cooldown ? "On Cooldown" : "Pledge"}</span>
       </button>
+
+      {cooldown && (
+        <div className="mt-4 flex items-center gap-2 text-lg text-red-500">
+          <Timer size={20} />
+          <span>Next pledge in: {timeLeft}</span>
+        </div>
+      )}
 
       {showPopup && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
