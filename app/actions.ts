@@ -19,7 +19,8 @@ export const signUpAction = async (formData: FormData) => {
     );
   }
 
-  const { error } = await supabase.auth.signUp({
+  // Step 1: Create user account
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -30,13 +31,41 @@ export const signUpAction = async (formData: FormData) => {
   if (error) {
     console.error(error.code + " " + error.message);
     return encodedRedirect("error", "/sign-up", error.message);
-  } else {
+  }
+
+  // Step 2: Retrieve the newly created user ID
+  const userId = data?.user?.id;
+  if (!userId) {
+    return encodedRedirect("error", "/sign-up", "User ID not found.");
+  }
+
+  // Step 3: Insert initial points entry for the new user
+  const { error: pointsError } = await supabase
+    .from("points")
+    .insert([
+      {
+        userid: userId,  // Set user ID
+        cooldown: null,  // No cooldown initially
+        streak: 0,       // Start with a 0-day streak
+        points: 0,       // No points yet
+      },
+    ]);
+
+  if (pointsError) {
+    console.error("Error inserting into points table:", pointsError.message);
     return encodedRedirect(
-      "success",
+      "error",
       "/sign-up",
-      "Thanks for signing up! Please check your email for a verification link.",
+      "User created but failed to initialize points.",
     );
   }
+
+  // Success message
+  return encodedRedirect(
+    "success",
+    "/sign-up",
+    "Thanks for signing up! Please check your email for a verification link.",
+  );
 };
 
 export const signInAction = async (formData: FormData) => {
