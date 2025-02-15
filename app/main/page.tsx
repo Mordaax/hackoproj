@@ -43,12 +43,12 @@ export default async function AIChatPage() {
   const joinDay = joinDate.getDate();
 
   return (
-    <main className="flex w-full h-screen flex-col items-center bg-[#FBFFE4] dark:bg-[#3D8D7A] text-white">
-      <Profile 
-        useremail={userEmail} 
-        joindate={`${joinDay} ${joinMonthName}`} 
-        streak={streak} 
-        points={points} 
+    <main className="flex w-full h-screen flex-col items-center">
+      <Profile
+        useremail={userEmail}
+        joindate={`${joinDay} ${joinMonthName}`}
+        streak={streak}
+        points={points}
       />
     </main>
   );

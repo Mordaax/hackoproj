@@ -5,6 +5,7 @@ import { ThemeSwitcher } from "@/components/theme-switcher";
 import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import { ReactNode } from "react";
 import Link from "next/link";
 import "./globals.css";
 
@@ -23,20 +24,16 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={geistSans.className} suppressHydrationWarning>
-      <body className="bg-background text-foreground">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <body className="bg-background text-foreground">
           <main className="flex flex-col min-h-screen w-full">
             <nav className="w-full flex justify-center border-b-foreground/10 h-16">
               <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
@@ -54,7 +51,6 @@ export default function RootLayout({
               <Link href={"/donationhistory"}>Donation History</Link>
               <Link href={"/addictionhelp"}>Join Programmes</Link>
               </div>
-            
             </nav>
             <div className="flex-1 w-full h-full flex flex-col items-center">
               {children}
@@ -62,7 +58,7 @@ export default function RootLayout({
 
             <footer className="w-full flex items-center justify-center mx-auto text-center text-xs gap-8 py-16">
               <p>
-                A {" "}
+                A{" "}
                 <a
                   href="https://hackomania.geekshacking.com/"
                   target="_blank"
@@ -75,8 +71,8 @@ export default function RootLayout({
               <ThemeSwitcher />
             </footer>
           </main>
-        </ThemeProvider>
-      </body>
+        </body>
+      </ThemeProvider>
     </html>
   );
 }
