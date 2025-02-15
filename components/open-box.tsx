@@ -10,7 +10,10 @@ interface ClientSideComponentProps {
   remainingTime: string | null;
 }
 
-export default function ClientSideComponent({ cooldownActive, remainingTime }: ClientSideComponentProps) {
+export default function ClientSideComponent({
+  cooldownActive,
+  remainingTime,
+}: ClientSideComponentProps) {
   const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
   const router = useRouter();
   const [arr, setArr] = useState([1, 2, 3, 4, 5, 6, 7]); // The array of levels
@@ -21,9 +24,9 @@ export default function ClientSideComponent({ cooldownActive, remainingTime }: C
   };
 
   return (
-    <main className="flex w-full h-screen flex-col items-center text-white">
+    <main className="flex w-full min-h-screen flex-col items-center">
       <div className="container flex grow flex-col items-center justify-center gap-20 px-4 py-16">
-        <h1 className="mt-20 text-center text-3xl font-extrabold tracking-tight text-white">
+        <h1 className="text-center text-3xl font-extrabold tracking-tight">
           I am a gooning addict
         </h1>
 
@@ -32,7 +35,7 @@ export default function ClientSideComponent({ cooldownActive, remainingTime }: C
             <div
               key={level}
               className={`w-24 h-24 flex items-center justify-center cursor-pointer rounded-full 
-        ${selectedLevel === level ? "bg-[#B3D8A8]" : "bg-[#FBFFE4]"} 
+        ${selectedLevel === level ? "bg-[var(--circle-selected)]" : "bg-[var(--circle-unselected)]"} 
         transition-all duration-200 
         ${index % 2 === 0 ? "ml-40" : "mr-16"}`}
               onClick={() => handleLevelClick(level)}

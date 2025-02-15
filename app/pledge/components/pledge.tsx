@@ -12,7 +12,9 @@ const Pledge = ({ userId, initialStreak, initialPoints, initialCooldown }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [streak, setStreak] = useState(initialStreak);
   const [points, setPoints] = useState(initialPoints);
-  const [cooldown, setCooldown] = useState(initialCooldown ? new Date(initialCooldown) : null);
+  const [cooldown, setCooldown] = useState(
+    initialCooldown ? new Date(initialCooldown) : null
+  );
   const [animationActive, setAnimationActive] = useState(false);
   const [timeLeft, setTimeLeft] = useState("");
 
@@ -46,10 +48,10 @@ const Pledge = ({ userId, initialStreak, initialPoints, initialCooldown }) => {
     const newCooldown = new Date();
     const { error } = await supabase
       .from("points")
-      .update({ 
-        streak: newStreak, 
-        points: newPoints, 
-        cooldown: newCooldown.toISOString() 
+      .update({
+        streak: newStreak,
+        points: newPoints,
+        cooldown: newCooldown.toISOString(),
       })
       .eq("userid", userId);
 
@@ -85,14 +87,18 @@ const Pledge = ({ userId, initialStreak, initialPoints, initialCooldown }) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold">Combat Addiction: Make a Pledge</h1>
-        <p className="text-gray-500 mt-2">Every pledge counts toward your recovery journey.</p>
+        <h1 className="text-3xl font-bold text-black">
+          Combat Addiction: Make a Pledge
+        </h1>
+        <p className="text-gray-500 mt-2">
+          Every pledge counts toward your recovery journey.
+        </p>
       </div>
 
       <button
         onClick={handlePledgeClick}
         className={`flex flex-col items-center justify-center p-6 rounded-full shadow-xl text-xl font-bold transition-all 
-          ${cooldown ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-400"} text-white`}
+          ${cooldown ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-400"}`}
         disabled={!!cooldown}
       >
         <ThumbsUp size={40} />
@@ -109,7 +115,9 @@ const Pledge = ({ userId, initialStreak, initialPoints, initialCooldown }) => {
       {showPopup && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-            <p className="text-lg mb-4">Do you want to pledge and increase your streak?</p>
+            <p className="text-lg mb-4 text-black">
+              Do you want to pledge and increase your streak?
+            </p>
             <div className="flex justify-center gap-6">
               <button
                 onClick={() => handlePopupAnswer(true)}

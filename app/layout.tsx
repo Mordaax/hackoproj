@@ -45,11 +45,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </nav>
             <nav className="w-full flex justify-center border-b-foreground/10 h-16 mb-5">
               <div className="flex gap-5 items-center font-semibold">
-                <Link href={"/aichat"}>Get Tips</Link>
-                <Link href={"/donation"}>Donate to a cause</Link>
-                <Link href={"/"}>Profile</Link>
-                <Link href={"/donationhistory"}>Donation History</Link>
-                <Link href={"/addictionhelp"}>Join Programmes</Link>
+              <Link href={"/aichat"}>Get Tips</Link>
+              <Link href={"/donation"}>Support Programmes</Link>
+              <Link href={"/"}>Profile</Link>
+              <Link href={"/donationhistory"}>Donation History</Link>
+              <Link href={"/addictionhelp"}>Join Programmes</Link>
               </div>
             </nav>
             <div className="flex-1 w-full h-full flex flex-col items-center">
