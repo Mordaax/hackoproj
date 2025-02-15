@@ -2,10 +2,12 @@
 
 import PulsingCircle from "@/components/pulse-circle";
 import { useState } from "react";
+import { Trees } from "lucide-react";
+import RandomContent from "./cycle-element";
 
 export default function ClientSideComponent() {
   const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
-  const [arr, setArr] = useState([1, 2, 3, 4]); // The array of levels
+  const [arr, setArr] = useState([1, 2, 3, 4, 5, 6, 7]); // The array of levels
 
   const handleLevelClick = (level: number) => {
     // Remove the clicked level from the array
@@ -28,7 +30,7 @@ export default function ClientSideComponent() {
           {arr.map((level, index) => (
             <div
               key={level}
-              className={`w-28 h-28 flex items-center justify-center cursor-pointer rounded-full 
+              className={`w-24 h-24 flex items-center justify-center cursor-pointer rounded-full 
         ${selectedLevel === level ? "bg-[#B3D8A8]" : "bg-[#FBFFE4]"} 
         transition-all duration-200 
         ${index % 2 === 0 ? "ml-40" : "mr-16"}`}
@@ -40,8 +42,7 @@ export default function ClientSideComponent() {
         {selectedLevel !== null && (
           <div className="fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#FBFFE4] p-8 rounded-lg shadow-lg text-black w-80 text-center">
             <h2 className="text-xl font-bold">Day {selectedLevel}</h2>
-            <p className="mt-2">Goon to the rhythm</p>
-            <PulsingCircle />
+            <RandomContent />
             <button
               className="mt-4 px-4 py-2 bg-[#3D8D7A] text-white rounded-lg"
               onClick={handleClosePopup}
