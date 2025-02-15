@@ -1,9 +1,8 @@
+import { Cigarette, Beer, Laptop, Dices } from "lucide-react";
 import FetchDataSteps from "@/components/tutorial/fetch-data-steps";
 import subjects from "@/utils/subjects";
 import { createClient } from "@/utils/supabase/server";
-import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
-import { Addiction } from "@/components/addiction";
 import Link from "next/link";
 
 export default async function Register() {
@@ -18,9 +17,9 @@ export default async function Register() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center bg-[#235390] text-white">
-      <div className="container flex grow flex-col items-center justify-center gap-16 px-6 py-20">
-        <h1 className="mt-10 text-center text-5xl font-extrabold tracking-tight text-white sm:text-6xl">
+    <main className="flex min-h-screen flex-col items-center bg-white text-gray-800 rounded-xl">
+      <div className="container flex flex-col items-center justify-center gap-16 px-10 py-10">
+        <h1 className="mt-10 text-center text-5xl font-extrabold tracking-tight text-[#3D8D7A] sm:text-6xl">
           I need help with...
         </h1>
 
@@ -29,12 +28,22 @@ export default async function Register() {
             <Link
               key={subject.name}
               href="/learn"
-              className="flex flex-col items-center gap-5 rounded-3xl border-2 border-gray-400 px-6 py-10 text-2xl font-semibold transition-all duration-200 hover:scale-105 hover:bg-gray-300 hover:bg-opacity-30"
+              className="flex flex-col items-center gap-5 rounded-3xl border-2 border-[#B3D8A8] px-6 py-8 text-xl font-semibold transition-all duration-200 hover:scale-105 hover:bg-gray-200 hover:bg-opacity-50"
             >
-              {
-                //onClick={() => setsubject(subject)}
-              }
-              <Addiction subject={subject} />
+              <div className="flex justify-center items-center bg-[#FBFFE4] rounded-full p-4">
+                {subject.name === "Smoking" && (
+                  <Cigarette size={48} className="text-[#3D8D7A]" />
+                )}
+                {subject.name === "Drinking" && (
+                  <Beer size={48} className="text-[#3D8D7A]" />
+                )}
+                {subject.name === "Screen Time" && (
+                  <Laptop size={48} className="text-[#3D8D7A]" />
+                )}
+                {subject.name === "Gambling" && (
+                  <Dices size={48} className="text-[#3D8D7A]" />
+                )}
+              </div>
               <span>{subject.name}</span>
             </Link>
           ))}
