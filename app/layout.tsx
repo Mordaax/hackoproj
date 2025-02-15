@@ -49,7 +49,7 @@ export default function RootLayout({
             <nav className="w-full flex justify-center border-b-foreground/10 h-16 mb-5">
               <div className="flex gap-5 items-center font-semibold">
               <Link href={"/aichat"}>Get Tips</Link>
-              <Link href={"/donation"}>Donate to a cause</Link>
+              <Link href={"/donation"}>Support Programmes</Link>
               <Link href={"/"}>Profile</Link>
               <Link href={"/donationhistory"}>Donation History</Link>
               <Link href={"/addictionhelp"}>Join Programmes</Link>
