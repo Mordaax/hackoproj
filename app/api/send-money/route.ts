@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const { sendingWalletAddressUrl, email, amount,displayName } = await req.json();
-
     if (!sendingWalletAddressUrl || !email || !amount) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }

@@ -3,8 +3,10 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
-export default function DonatePage(props) {
+interface DonatePageProps {
+  displayName: string;
+}
+export default function DonatePage({ displayName }: DonatePageProps) {
   const [sendingWalletAddressUrl, setSendingWalletAddressUrl] = useState("");
   const [amount, setAmount] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -21,7 +23,6 @@ export default function DonatePage(props) {
       setErrorMessage("Please fill in both fields.");
       return;
     }
-
     try {
       const response = await fetch("/api/send-money", {
         method: "POST",
@@ -32,7 +33,7 @@ export default function DonatePage(props) {
           sendingWalletAddressUrl,
           email: "cepic77@gmail.com", // Use email from user object
           amount,
-          displayName:props.displayName
+          displayName
         }),
       });
 
@@ -53,7 +54,7 @@ export default function DonatePage(props) {
   };
 
   return (
-    <main className="flex w-full h-screen flex-col items-center bg-[#FBFFE4] dark:bg-[#3D8D7A] text-white">
+    <main className="flex w-full flex-col items-center bg-[#FBFFE4] dark:bg-[#3D8D7A] text-white">
       <form onSubmit={handleSubmit} className="p-6 bg-[#A3D1C6] rounded-lg shadow-md w-full max-w-md"> {/* Form styling */}
   <div className="mb-4"> {/* Input container */}
     <label htmlFor="sendingWalletAddressUrl" className="block text-gray-600 text-sm font-medium mb-2">
@@ -87,7 +88,7 @@ export default function DonatePage(props) {
   {successMessage && <p className="text-green-500 mb-2">{successMessage}</p>} {/* Success message styling */}
   {redirectUrl && (
     <p className="text-yellow-400 mb-4"> {/* Redirect message styling */}
-      You have 1 minute to approve the transaction. <a href={redirectUrl} className="underline">Approve</a>
+      You have 1 minute to approve the transaction. 
     </p>
   )}
   <Button type="submit" className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"> {/* Button styling */}
