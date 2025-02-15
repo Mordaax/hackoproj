@@ -19,9 +19,9 @@ export default async function AIChatPage() {
   const userAgent = headerList.get("user-agent") || "Unknown";
 
   return (
-    <main className="flex w-full h-screen flex-col items-center bg-[#FBFFE4] dark:bg-[#3D8D7A] text-white">
+    <main className="flex w-full h-screen flex-col items-center">
       <div className="container flex grow flex-col gap-10 px-4 py-16 max-w-2xl">
-        <h1 className="text-center text-3xl font-extrabold tracking-tight text-white">
+        <h1 className="text-center text-3xl font-extrabold tracking-tight">
           AI Chat Interface
         </h1>
         {/* ✅ Correctly passing userAgent */}

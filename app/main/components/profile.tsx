@@ -1,16 +1,18 @@
-
 import type { NextPage } from "next";
 import Link from "next/link";
 import { Medal, Flame, Star, SmilePlus } from "lucide-react";
 
-const Profile:NextPage = (props) => {
+const Profile: NextPage = (props) => {
   return (
     <div>
       <ProfileTopBar />
       <div className="flex justify-center gap-3 pt-14">
         <div className="flex w-full max-w-4xl flex-col gap-5 p-5">
-          <ProfileTopSection email={props.useremail} joindate={props.joindate}/>
-          <ProfileStatsSection streak={props.streak} points={props.points}/>
+          <ProfileTopSection
+            email={props.useremail}
+            joindate={props.joindate}
+          />
+          <ProfileStatsSection streak={props.streak} points={props.points} />
           <ProfileSupportNetwork />
         </div>
       </div>
@@ -32,10 +34,10 @@ const ProfileTopBar = () => {
   );
 };
 
-const ProfileTopSection = (props:any) => {
+const ProfileTopSection = (props: any) => {
   const name = "Koo Wenqi";
-  const username = props.email
-  const joinedAt = props.joindate
+  const username = props.email;
+  const joinedAt = props.joindate;
   const followersCount = 15;
   const followingCount = 8;
   const language = "en";
@@ -69,7 +71,7 @@ const ProfileTopSection = (props:any) => {
   );
 };
 
-const ProfileStatsSection = (props:any) => {
+const ProfileStatsSection = (props: any) => {
   const daysSober = props.streak;
   const totalXp = props.points;
   const topMilestones = 3;
@@ -82,21 +84,27 @@ const ProfileStatsSection = (props:any) => {
           <SmilePlus className="text-orange-500" size={28} />
           <div className="flex flex-col">
             <span className="text-xl font-bold">{daysSober}</span>
-            <span className="text-sm text-gray-400 dark:text-white-500 md:text-base">Days Sober</span>
+            <span className="text-sm dark:text-white-500 md:text-base">
+              Days Sober
+            </span>
           </div>
         </div>
         <div className="flex items-center gap-3 rounded-2xl border-2 border-gray-200 p-4">
           <Star className="text-yellow-500" size={28} />
           <div className="flex flex-col">
             <span className="text-xl font-bold">{totalXp}</span>
-            <span className="text-sm text-gray-400 dark:text-white-500 md:text-base">Recovery XP</span>
+            <span className="text-sm dark:text-white-500 md:text-base">
+              Recovery XP
+            </span>
           </div>
         </div>
         <div className="flex items-center gap-3 rounded-2xl border-2 border-gray-200 p-4">
           <Medal className="text-blue-500" size={28} />
           <div className="flex flex-col">
             <span className="text-xl font-bold">{topMilestones}</span>
-            <span className="text-sm text-gray-400 dark:text-white-500 md:text-base">Major Milestones</span>
+            <span className="text-sm dark:text-white-500 md:text-base">
+              Major Milestones
+            </span>
           </div>
         </div>
       </div>
@@ -109,7 +117,7 @@ const ProfileSupportNetwork = () => {
     <section>
       <h2 className="mb-5 text-2xl font-bold">Support Network</h2>
       <div className="rounded-2xl border-2 border-gray-200">
-        <div className="flex items-center justify-center py-10 text-center text-gray-500">
+        <div className="flex items-center justify-center py-10 text-center">
           No support members added yet
         </div>
       </div>

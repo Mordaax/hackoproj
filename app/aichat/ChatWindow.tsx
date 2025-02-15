@@ -24,7 +24,10 @@ export default function ChatWindow({ userAgent }: { userAgent: string }) {
     setLoading(true); // Start loading
 
     // Show "Thinking..." animation
-    setMessages((prev) => [...prev, { text: "Thinking...", sender: "ai", isLoading: true }]);
+    setMessages((prev) => [
+      ...prev,
+      { text: "Thinking...", sender: "ai", isLoading: true },
+    ]);
 
     try {
       const response = await fetch("/api/geminiapi", {
@@ -38,14 +41,21 @@ export default function ChatWindow({ userAgent }: { userAgent: string }) {
       // Replace "Thinking..." with actual response
       setMessages((prev) =>
         prev.map((msg) =>
-          msg.isLoading ? { text: data.reply || "I couldn't generate a response.", sender: "ai" } : msg
+          msg.isLoading
+            ? {
+                text: data.reply || "I couldn't generate a response.",
+                sender: "ai",
+              }
+            : msg
         )
       );
     } catch (error) {
       console.error("Error sending message:", error);
       setMessages((prev) =>
         prev.map((msg) =>
-          msg.isLoading ? { text: "Error fetching response.", sender: "ai" } : msg
+          msg.isLoading
+            ? { text: "Error fetching response.", sender: "ai" }
+            : msg
         )
       );
     } finally {
@@ -63,7 +73,9 @@ export default function ChatWindow({ userAgent }: { userAgent: string }) {
 
   return (
     <div className="flex flex-col w-full bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg">
-      <p className="text-xs text-gray-500 dark:text-gray-400">User-Agent: {userAgent}</p>
+      <p className="text-xs text-gray-500 dark:text-gray-400">
+        User-Agent: {userAgent}
+      </p>
 
       <div className="flex flex-col space-y-2 h-80 overflow-y-auto p-2">
         {messages.map((msg, index) => (
@@ -78,7 +90,10 @@ export default function ChatWindow({ userAgent }: { userAgent: string }) {
             {msg.text === "Thinking..." ? (
               <span className="animate-pulse">Thinking...</span> // ✅ Animated loading text
             ) : (
-              <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeHighlight]}
+              >
                 {msg.text}
               </ReactMarkdown>
             )}
