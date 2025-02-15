@@ -1,11 +1,18 @@
+
 import FetchDataSteps from "@/components/tutorial/fetch-data-steps";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { createClient } from "@/utils/supabase/server";
-import { InfoIcon } from "lucide-react";
+import { InfoIcon, Send } from "lucide-react";
 import { redirect } from "next/navigation";
 
-export default async function ProtectedPage() {
-  const supabase = await createClient();
+import Profile from "./components/profile";
+  
 
+
+export default async function AIChatPage() {
+  const supabase = await createClient();
+  
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -15,11 +22,11 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-12">
-      <div className="w-full">
-        
-      </div>
-      
-    </div>
+    <main
+      className="flex w-full h-screen flex-col items-center bg-[#FBFFE4] dark:bg-[#3D8D7A] text-white"
+    >
+        <Profile />
+    
+    </main>
   );
 }
