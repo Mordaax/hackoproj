@@ -6,6 +6,8 @@ import _bgSnow from "../../public/bg-snow.svg";
 import Link from "next/link";
 
 import type { StaticImageData } from "next/image";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const bgSnow = _bgSnow as StaticImageData;
 
@@ -20,11 +22,13 @@ export default async function ProtectedPage() {
     return redirect("/sign-in");
   }
 
+
   return (
     <main
       className="flex w-full h-screen flex-col items-center bg-[#FBFFE4] dark:bg-[#3D8D7A] text-white"
       style={{ backgroundImage: `url(${bgSnow.src})` }}
     >
+
 
       <div className="container flex grow flex-col gap-20 px-4 py-16">
         <h1 className="mt-20 text-center text-3xl font-extrabold tracking-tight text-white">
