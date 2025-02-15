@@ -6,16 +6,17 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export const signUpAction = async (formData: FormData) => {
+  const displayname = formData.get("displayname")?.toString();
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
 
-  if (!email || !password) {
+  if (!displayname || !email || !password) {
     return encodedRedirect(
       "error",
       "/sign-up",
-      "Email and password are required",
+      "Email and password are required"
     );
   }
 
@@ -25,6 +26,9 @@ export const signUpAction = async (formData: FormData) => {
     password,
     options: {
       emailRedirectTo: `${origin}/auth/callback`,
+      data: {
+        display_name: displayname
+      },
     },
   });
 
@@ -44,7 +48,7 @@ export const signUpAction = async (formData: FormData) => {
     .from("points")
     .insert([
       {
-        userid: userId,  // Set user ID
+        userid: userId, // Set user ID
         cooldown: null,  // No cooldown initially
         streak: 0,       // Start with a 0-day streak
         points: 0,       // No points yet
@@ -56,7 +60,28 @@ export const signUpAction = async (formData: FormData) => {
     return encodedRedirect(
       "error",
       "/sign-up",
-      "User created but failed to initialize points.",
+      "User created but failed to initialize points."
+    );
+  }
+
+  // Step 4: Insert the user data into the 'username' table
+  const { error: usernameError } = await supabase
+    .from("username")
+    .insert([
+      {
+        username: displayname, // User's display name as username
+        userid: userId,        // The newly created user's ID
+        email: email,          // The user's email
+      },
+    ]);
+  console.log(error)
+
+  if (usernameError) {
+    console.error("Error inserting into username table:", usernameError.message);
+    return encodedRedirect(
+      "error",
+      "/sign-up",
+      "User created but failed to insert username data."
     );
   }
 
@@ -64,7 +89,7 @@ export const signUpAction = async (formData: FormData) => {
   return encodedRedirect(
     "success",
     "/sign-up",
-    "Thanks for signing up! Please check your email for a verification link.",
+    "Thanks for signing up! Please check your email for a verification link."
   );
 };
 
@@ -104,7 +129,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
     return encodedRedirect(
       "error",
       "/forgot-password",
-      "Could not reset password",
+      "Could not reset password"
     );
   }
 
@@ -115,7 +140,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
   return encodedRedirect(
     "success",
     "/forgot-password",
-    "Check your email for a link to reset your password.",
+    "Check your email for a link to reset your password."
   );
 };
 
@@ -129,7 +154,7 @@ export const resetPasswordAction = async (formData: FormData) => {
     encodedRedirect(
       "error",
       "/protected/reset-password",
-      "Password and confirm password are required",
+      "Password and confirm password are required"
     );
   }
 
@@ -137,7 +162,7 @@ export const resetPasswordAction = async (formData: FormData) => {
     encodedRedirect(
       "error",
       "/protected/reset-password",
-      "Passwords do not match",
+      "Passwords do not match"
     );
   }
 
@@ -149,7 +174,7 @@ export const resetPasswordAction = async (formData: FormData) => {
     encodedRedirect(
       "error",
       "/protected/reset-password",
-      "Password update failed",
+      "Password update failed"
     );
   }
 

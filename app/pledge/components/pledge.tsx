@@ -116,7 +116,7 @@ const Pledge = ({ userId, initialStreak, initialPoints, initialCooldown }) => {
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg text-center">
             <p className="text-lg mb-4 text-black">
-              Do you want to pledge and increase your streak?
+              Do you pledge that you fought your addiction today?
             </p>
             <div className="flex justify-center gap-6">
               <button
