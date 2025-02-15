@@ -15,6 +15,7 @@ const Donations: React.FC = (props) => {
 
   useEffect(() => {
     const getData = async () => {
+
       const { data } = await supabase.from('xpcount').select();
       if (data && data.length > 0) {
         setXpcount(data[0]);
@@ -32,13 +33,14 @@ const Donations: React.FC = (props) => {
     .from('points')
     .select('*')
     .eq('userid', user.id)
-    console.log(data)
+
     data[0]["points"] = data[0]["points"]-100 
     const { error } = await supabase
       .from('points')
       .update(data)
       .eq('userid', user.id)
-    console.log(error)
+    
+    
     router.push(`/transaction?programTitle=${encodeURIComponent(title)}`);
   };
 
@@ -51,17 +53,17 @@ const Donations: React.FC = (props) => {
         </p>
         <div className="grid gap-5">
           {[
-            { key: 'xp1', title: "Smoke Recovery Program", description: "Help individuals quit smoking through support groups and counseling.", cost: 100 },
-            { key: 'xp2', title: "Gambling Recovery Program", description: "Support gambling addiction recovery programs and helplines.", cost: 100 },
-            { key: 'xp3', title: "Counseling Services", description: "Fund professional counseling for those in need of mental health support.", cost: 100 },
-            { key: 'xp4', title: "General Recovery Fund", description: "Contribute to a general fund supporting various recovery programs.", cost: 100 },
-          ].map(({ key, title, description, cost }) => (
+            { id:1,key: 'xp1', title: "Smoke Recovery Program", description: "Help individuals quit smoking through support groups and counseling.", cost: 100 },
+            { id:2,key: 'xp2', title: "Gambling Recovery Program", description: "Support gambling addiction recovery programs and helplines.", cost: 100 },
+            {id:3, key: 'xp3', title: "Counseling Services", description: "Fund professional counseling for those in need of mental health support.", cost: 100 },
+            {id:4, key: 'xp4', title: "General Recovery Fund", description: "Contribute to a general fund supporting various recovery programs.", cost: 100 },
+          ].map(({ id, key, title, description, cost }) => (
             <DonationOption
               key={key}
               title={title}
               description={description}
               cost={cost}
-              onDonate={handleDonationClick}
+              onDonate={handleDonationClick(title)}
               xpcount={xpcount[key] || 0}
               totalxp={totalxp}
             />
