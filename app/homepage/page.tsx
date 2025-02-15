@@ -1,6 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import ClientSideComponent from "@/components/open-box";
+import RightBar from "@/components/rightbar";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -30,7 +31,8 @@ export default async function HomePage() {
   if (data?.cooldown) {
     const cooldownTime = new Date(data.cooldown); // The timestamp of the last pledge
     const now = new Date();
-    const timeDiff = cooldownTime.getTime() + 24 * 60 * 60 * 1000 - now.getTime(); // 24 hours after the last pledge
+    const timeDiff =
+      cooldownTime.getTime() + 24 * 60 * 60 * 1000 - now.getTime(); // 24 hours after the last pledge
 
     if (timeDiff > 0) {
       cooldownActive = true;
@@ -48,7 +50,11 @@ export default async function HomePage() {
 
   return (
     <div>
-      <ClientSideComponent cooldownActive={cooldownActive} remainingTime={remainingTime} />
+      <ClientSideComponent
+        cooldownActive={cooldownActive}
+        remainingTime={remainingTime}
+      />
+      <RightBar />
     </div>
   );
 }
