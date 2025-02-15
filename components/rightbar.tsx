@@ -39,7 +39,7 @@ export default function RightBar() {
   }, []);
 
   return (
-    <aside className="fixed right-4 top-4 h-[80vh] w-72 flex flex-col gap-6">
+    <aside className="right-4 top-4 h-[80vh] w-72 flex flex-col gap-6">
       {/* Streak Tracker Card */}
       <div className="bg-[#B3D8A8] p-6 rounded-2xl shadow-lg flex flex-col items-center justify-center h-1/2">
         <div className="flex items-center gap-3">
