@@ -21,13 +21,14 @@ export default function ClientSideComponent() {
           I am a gooning addict
         </h1>
 
-        <div className="grid grid-cols-4 gap-6">
+        <div className="flex flex-col items-center gap-4">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((level, index) => (
             <div
               key={level}
               className={`w-16 h-16 flex items-center justify-center cursor-pointer rounded-full 
-                ${selectedLevel === level ? "bg-[#B3D8A8]" : "bg-[#FBFFE4] "} 
-                transition-all duration-200`}
+        ${selectedLevel === level ? "bg-[#B3D8A8]" : "bg-[#FBFFE4]"} 
+        transition-all duration-200 
+        ${index % 2 === 0 ? "ml-0" : "ml-12"}`} // Adjust left margin for zigzag
               onClick={() => handleLevelClick(level)}
             ></div>
           ))}
