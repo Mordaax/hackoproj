@@ -10,7 +10,7 @@ const Profile:NextPage = (props) => {
       <div className="flex justify-center gap-3 pt-14">
         <div className="flex w-full max-w-4xl flex-col gap-5 p-5">
           <ProfileTopSection email={props.useremail} joindate={props.joindate}/>
-          <ProfileStatsSection />
+          <ProfileStatsSection streak={props.streak} points={props.points}/>
           <ProfileSupportNetwork />
         </div>
       </div>
@@ -36,7 +36,6 @@ const ProfileTopSection = (props:any) => {
   const name = "Koo Wenqi";
   const username = props.email
   const joinedAt = props.joindate
-  const daysSober = 250;
   const followersCount = 15;
   const followingCount = 8;
   const language = "en";
@@ -70,9 +69,9 @@ const ProfileTopSection = (props:any) => {
   );
 };
 
-const ProfileStatsSection = () => {
-  const daysSober = 250;
-  const totalXp = 1250;
+const ProfileStatsSection = (props:any) => {
+  const daysSober = props.streak;
+  const totalXp = props.points;
   const topMilestones = 3;
 
   return (
