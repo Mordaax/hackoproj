@@ -20,9 +20,15 @@ export async function POST(req: Request) {
         },
       ],
       generationConfig: {
-        temperature: 0.7, // Controls randomness (0 = more deterministic, 1 = more creative)
-        maxOutputTokens: 200, // Limits response length
+        temperature: 0.9, // Controls randomness (0 = more deterministic, 1 = more creative)
       },
+      safetySettings: [
+        { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
+        { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
+        { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
+        { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
+      ],
+      
     };
 
     const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
@@ -40,9 +46,10 @@ export async function POST(req: Request) {
     const data = await response.json();
 
     // ✅ Handle valid responses
-    const reply =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "I'm sorry, but I couldn't generate a response.";
+    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text
+      || "I'm sorry, but I couldn't generate a response.";
+
+
 
     return NextResponse.json({ reply });
   } catch (error) {
