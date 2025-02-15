@@ -4,6 +4,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/github.css"; // ✅ Optional syntax highlighting
 
 export default function ChatWindow({ userAgent }: { userAgent: string }) {
   const [messages, setMessages] = useState([
@@ -67,14 +71,16 @@ export default function ChatWindow({ userAgent }: { userAgent: string }) {
             key={index}
             className={`p-2 rounded-lg max-w-xs ${
               msg.sender === "user"
-                ? "ml-auto bg-green-500"
-                : "bg-gray-300 dark:bg-gray-700"
+                ? "ml-auto bg-green-500 text-white"
+                : "bg-gray-300 dark:bg-gray-700 text-black dark:text-white"
             }`}
           >
             {msg.text === "Thinking..." ? (
               <span className="animate-pulse">Thinking...</span> // ✅ Animated loading text
             ) : (
-              msg.text
+              <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
+                {msg.text}
+              </ReactMarkdown>
             )}
           </div>
         ))}
