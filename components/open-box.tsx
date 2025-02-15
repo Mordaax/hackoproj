@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Trees } from "lucide-react";
+import RandomContent from "./cycle-element";
 
 interface ClientSideComponentProps {
   cooldownActive: boolean;
@@ -10,8 +12,8 @@ interface ClientSideComponentProps {
 
 export default function ClientSideComponent({ cooldownActive, remainingTime }: ClientSideComponentProps) {
   const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
-  const [arr, setArr] = useState([1, 2, 3, 4]);
   const router = useRouter();
+  const [arr, setArr] = useState([1, 2, 3, 4, 5, 6, 7]); // The array of levels
 
   const handleLevelClick = (level: number) => {
     setArr((prevArr) => prevArr.filter((item) => item !== level));
@@ -29,7 +31,7 @@ export default function ClientSideComponent({ cooldownActive, remainingTime }: C
           {arr.map((level, index) => (
             <div
               key={level}
-              className={`w-28 h-28 flex items-center justify-center cursor-pointer rounded-full 
+              className={`w-24 h-24 flex items-center justify-center cursor-pointer rounded-full 
         ${selectedLevel === level ? "bg-[#B3D8A8]" : "bg-[#FBFFE4]"} 
         transition-all duration-200 
         ${index % 2 === 0 ? "ml-40" : "mr-16"}`}
@@ -57,6 +59,7 @@ export default function ClientSideComponent({ cooldownActive, remainingTime }: C
               </button>
             )}
 
+            <RandomContent />
             <button
               className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-lg"
               onClick={() => setSelectedLevel(null)}
