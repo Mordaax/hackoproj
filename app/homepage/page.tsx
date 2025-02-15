@@ -49,14 +49,15 @@ export default async function HomePage() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
-      {/* Main Content */}
-      <div className="flex-1">
+    <div className="flex justify-center relative">
+      
+      {/* Main Content */}  
+      <div className="flex-1 ml-20">
         <ClientSideComponent cooldownActive={cooldownActive} remainingTime={remainingTime} />
       </div>
 
       {/* Right Sidebar - Streak & Level Info */}
-      <div className="w-full md:w-1/4">
+      <div className="w-full md:w-1/4 ">
         <RightBar />
       </div>
     </div>
