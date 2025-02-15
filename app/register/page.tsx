@@ -24,7 +24,7 @@ export default async function Register() {
           I need help with...
         </h1>
 
-        <section className="mx-auto grid w-full max-w-6xl grow grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <section className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {subjects.map((subject) => (
             <Link
               key={subject.name}
