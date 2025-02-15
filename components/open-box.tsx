@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Trees } from "lucide-react";
 import RandomContent from "./cycle-element";
 
 interface ClientSideComponentProps {
@@ -16,7 +15,7 @@ export default function ClientSideComponent({
 }: ClientSideComponentProps) {
   const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
   const router = useRouter();
-  const [arr, setArr] = useState([1, 2, 3, 4, 5, 6, 7]); // The array of levels
+  const [arr, setArr] = useState([1, 2, 3, 4, 5, 6, 7]);
 
   const handleLevelClick = (level: number) => {
     setArr((prevArr) => prevArr.filter((item) => item !== level));
@@ -26,10 +25,6 @@ export default function ClientSideComponent({
   return (
     <main className="flex w-full min-h-screen flex-col items-center">
       <div className="container flex grow flex-col items-center justify-center gap-20 px-4 py-16">
-        <h1 className="text-center text-3xl font-extrabold tracking-tight">
-          I am a gooning addict
-        </h1>
-
         <div className="flex flex-col items-center gap-20">
           {arr.map((level, index) => (
             <div
