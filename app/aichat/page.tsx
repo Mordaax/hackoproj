@@ -1,10 +1,9 @@
+// app/chat/page.tsx (Server Component)
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Send } from "lucide-react";
+import { headers } from "next/headers"; // Server-only module
 import _bgSnow from "../../public/bg-snow.svg";
+import ChatWindow from "@/app/aichat/ChatWindow"; // Client Component
 
 import type { StaticImageData } from "next/image";
 
@@ -20,6 +19,9 @@ export default async function AIChatPage() {
     return redirect("/sign-in");
   }
 
+  // Fetch headers (e.g., User-Agent)
+  const userAgent = headers().get("user-agent") || "Unknown";
+
   return (
     <main
       className="flex w-full h-screen flex-col items-center bg-[#FBFFE4] dark:bg-[#3D8D7A] text-white"
@@ -29,52 +31,9 @@ export default async function AIChatPage() {
         <h1 className="text-center text-3xl font-extrabold tracking-tight text-white">
           AI Chat Interface
         </h1>
-        <ChatWindow />
+        {/* Passing userAgent to the Client Component */}
+        <ChatWindow userAgent={userAgent} />
       </div>
     </main>
-  );
-}
-
-function ChatWindow() {
-  const [messages, setMessages] = useState([
-    { text: "Hello! How can I assist you today?", sender: "ai" },
-  ]);
-  const [input, setInput] = useState("");
-
-  const sendMessage = () => {
-    if (!input.trim()) return;
-    setMessages([...messages, { text: input, sender: "user" }]);
-    setInput("");
-
-    // Simulating AI response (replace with actual API call)
-    setTimeout(() => {
-      setMessages((prev) => [...prev, { text: "I'm just a demo!", sender: "ai" }]);
-    }, 1000);
-  };
-
-  return (
-    <div className="flex flex-col w-full bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg">
-      <div className="flex flex-col space-y-2 h-80 overflow-y-auto p-2">
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`p-2 rounded-lg max-w-xs ${msg.sender === "user" ? "ml-auto bg-green-500" : "bg-gray-300 dark:bg-gray-700"}`}
-          >
-            {msg.text}
-          </div>
-        ))}
-      </div>
-      <div className="flex items-center gap-2 mt-4">
-        <Input
-          className="flex-grow p-2 rounded-lg border border-gray-300 dark:border-gray-600"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Type a message..."
-        />
-        <Button onClick={sendMessage} className="p-2 bg-green-600 hover:bg-green-500 rounded-lg">
-          <Send size={20} />
-        </Button>
-      </div>
-    </div>
   );
 }
