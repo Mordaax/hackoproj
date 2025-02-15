@@ -1,4 +1,3 @@
-
 import { createClient } from "@/utils/supabase/server"; // Import Supabase client creation
 import Leaderboard from "./components/leaderboard"; // Import Leaderboard component
 import { redirect } from "next/navigation";
@@ -14,18 +13,47 @@ export default async function LeaderboardPage() {
     return redirect("/sign-in");
   }
 
-  // Step 3: Fetch top 10 players from the 'points' table
-  const { data: leaderboardData, error } = await supabase
+  // Step 3: Fetch top 10 players' user IDs and streaks from the 'points' table
+  const { data: leaderboardData, error: leaderboardError } = await supabase
     .from("points")
-    .select("username, streak")
+    .select("userid, streak") // Get the userid and streak
     .order("streak", { ascending: false }) // Order by streak in descending order
     .limit(10); // Only fetch top 10 players
 
-  if (error) {
-    console.error("Error fetching leaderboard data:", error.message);
+  if (leaderboardError) {
+    console.error("Error fetching leaderboard data:", leaderboardError.message);
   }
 
-  // Step 4: Generate dummy data if no data is available (for now)
+  // Step 4: Fetch usernames for the top 10 players using the user ids from the leaderboard data
+  const userIds = leaderboardData?.map(entry => entry.userid) || [];
+  
+  const { data: usersData, error: usersError } = await supabase
+    .from("username") // Assuming your users table contains the usernames
+    .select("userid, username") // Select the 'userid' and 'username'
+    .in("userid", userIds); // Fetch only users whose IDs match those in leaderboard
+
+  if (usersError) {
+    console.error("Error fetching users data:", usersError.message);
+  }
+
+  // Log the full usersData to inspect it
+  console.log("Users Data:", usersData); 
+
+  // Log just the usernames to inspect them individually
+  const usernames = usersData?.map(user => user.username);
+  console.log("Usernames:", usernames);
+
+  // Step 5: Combine leaderboard data with corresponding usernames
+  const playersToDisplay = leaderboardData?.map(entry => {
+    // Find the username by matching the user ID
+    const user = usersData?.find(user => user.userid === entry.userid);  // Ensure matching field name
+    return {
+      username: user?.username || "Unknown", // Fallback to "Unknown" if no username is found
+      streak: entry.streak,
+    };
+  }) || [];
+
+  // Step 6: If no leaderboard data, use dummy data
   const dummyPlayers = [
     { username: "player_1", streak: 30 },
     { username: "player_2", streak: 25 },
@@ -39,12 +67,11 @@ export default async function LeaderboardPage() {
     { username: "player_10", streak: 3 },
   ];
 
-  // Use fetched data or dummy data if fetching fails
-  const playersToDisplay = leaderboardData || dummyPlayers;
+  const finalPlayers = playersToDisplay.length ? playersToDisplay : dummyPlayers;
 
   return (
     <main className="flex w-full h-screen flex-col items-center py-16 bg-gray-100">
-      <Leaderboard players={playersToDisplay} />
+      <Leaderboard players={finalPlayers} />
     </main>
   );
 }
