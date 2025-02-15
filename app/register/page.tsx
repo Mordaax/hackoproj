@@ -28,7 +28,7 @@ export default async function Register() {
             <Link
               key={subject.name}
               href="/learn"
-              className="flex flex-col items-center gap-5 rounded-3xl border-2 border-gray-400 px-6 py-8 text-xl font-semibold transition-all duration-200 hover:scale-105 hover:bg-gray-200 hover:bg-opacity-50"
+              className="flex flex-col items-center gap-5 rounded-3xl border-2 border-[#B3D8A8] px-6 py-8 text-xl font-semibold transition-all duration-200 hover:scale-105 hover:bg-gray-200 hover:bg-opacity-50"
             >
               <div className="flex justify-center items-center bg-[#FBFFE4] rounded-full p-4">
                 {subject.name === "Smoking" && (
