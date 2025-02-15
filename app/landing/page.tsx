@@ -1,12 +1,12 @@
 "use client";
 import { type NextPage } from "next";
 import { useEffect, useState } from "react";
-import { Users, ThumbsUp, Heart } from "lucide-react"; // Lucide icons for emojis
+import { Users, ThumbsUp, Heart, Bean, Star, BicepsFlexedIcon } from "lucide-react"; // Added the necessary Lucide icons
 import { useRouter } from "next/navigation"; // Correct import for Next.js 13+
 
 const Home: NextPage = () => {
   const [authCount, setAuthCount] = useState(0); // To hold the count of auth entries
-  const targetCount = 500; // Replace with actual API call count when ready
+  const targetCount = 254; // Replace with actual API call count when ready
 
   const router = useRouter();
 
@@ -35,11 +35,11 @@ const Home: NextPage = () => {
       <div className="max-w-2xl p-8 rounded-2xl shadow-lg text-center space-y-6">
         {/* Heading */}
         <h1 className="text-5xl font-bold text-black mb-4">
-          🌱 Heng Ong Huat Foundation
+          <Bean className="inline-block mr-2 text-yellow-500" /> Heng Ong Huat Foundation
         </h1>
         
         <p className="text-lg text-gray-600 mb-4">
-          Helping individuals recover and rebuild their lives. 🌟
+          Helping individuals recover and rebuild their lives. <Star className="inline-block ml-2 text-yellow-500" />
         </p>
 
         {/* Animated counter */}
@@ -79,7 +79,7 @@ const Home: NextPage = () => {
 
       {/* Additional Footer */}
       <div className="mt-16 text-center text-lg text-gray-600">
-        <p>Your support can help make a real difference in someone's recovery journey. 💪</p>
+        <p>Your support can help make a real difference in someone's recovery journey. <BicepsFlexedIcon className="inline-block ml-2 text-yellow-500" /></p>
       </div>
     </main>
   );
