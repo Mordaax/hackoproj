@@ -38,7 +38,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main className="flex flex-col min-h-screen w-full">
-            <nav className="w-full flex justify-center border-b-foreground/10 h-16 mb-10">
+            <nav className="w-full flex justify-center border-b-foreground/10 h-16">
               <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
                 <div className="flex gap-5 items-center font-semibold">
                   <Link href={"/"}>Home</Link>
@@ -46,7 +46,16 @@ export default function RootLayout({
                 {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
               </div>
             </nav>
+            <nav className="w-full flex justify-center border-b-foreground/10 h-16 mb-5">
+              <div className="flex gap-5 items-center font-semibold">
+              <Link href={"/aichat"}>Get Tips</Link>
+              <Link href={"/donation"}>Donate to a cause</Link>
+              <Link href={"/"}>Profile</Link>
+              <Link href={"/donationhistory"}>Donation History</Link>
+              <Link href={"/addictionhelp"}>Join Programmes</Link>
+              </div>
             
+            </nav>
             <div className="flex-1 w-full h-full flex flex-col items-center">
               {children}
             </div>

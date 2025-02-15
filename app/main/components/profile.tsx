@@ -1,8 +1,9 @@
+
 import type { NextPage } from "next";
 import Link from "next/link";
 import { Medal, Flame, Star, SmilePlus } from "lucide-react";
 
-const Profile: NextPage = () => {
+const Profile:NextPage = () => {
   return (
     <div>
       <ProfileTopBar />

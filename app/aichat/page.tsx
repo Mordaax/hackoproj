@@ -19,8 +19,9 @@ export default async function AIChatPage() {
     return redirect("/sign-in");
   }
 
-  // Fetch headers (e.g., User-Agent)
-  const userAgent = headers().get("user-agent") || "Unknown";
+  // ✅ Correct: Await headers()
+  const headerList = await headers();
+  const userAgent = headerList.get("user-agent") || "Unknown";
 
   return (
     <main
@@ -31,7 +32,7 @@ export default async function AIChatPage() {
         <h1 className="text-center text-3xl font-extrabold tracking-tight text-white">
           AI Chat Interface
         </h1>
-        {/* Passing userAgent to the Client Component */}
+        {/* ✅ Correctly passing userAgent */}
         <ChatWindow userAgent={userAgent} />
       </div>
     </main>
