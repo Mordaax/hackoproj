@@ -11,19 +11,18 @@ import "highlight.js/styles/github.css"; // ✅ Optional syntax highlighting
 
 export default function ChatWindow({ userAgent }: { userAgent: string }) {
   const [messages, setMessages] = useState([
-    { text: "Hello! How can I assist you today?", sender: "ai" },
+    { text: "Hello! Feel Free to ask any questions about addictions?", sender: "ai" },
   ]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false); // Track loading state
+  const [loading, setLoading] = useState(false); 
 
   const sendMessage = async () => {
-    if (!input.trim() || loading) return; // Prevent sending empty input or while loading
+    if (!input.trim() || loading) return; 
 
     setMessages((prev) => [...prev, { text: input, sender: "user" }]);
     setInput("");
-    setLoading(true); // Start loading
+    setLoading(true);
 
-    // Show "Thinking..." animation
     setMessages((prev) => [
       ...prev,
       { text: "Thinking...", sender: "ai", isLoading: true },

@@ -172,7 +172,7 @@ const DonationOption = ({
                 : "bg-blue-500 border-blue-400 text-white hover:brightness-110"
             }`}
           >
-            {isDisabled ? "Insufficient points!" : "Donate"}
+            {isDisabled ? "Insufficient points!" : "Donate 100xp"}
           </button>
           <span className="ml-2 text-sm font-bold">{xpcount} Total XP</span>
         </div>

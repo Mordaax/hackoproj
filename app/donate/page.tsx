@@ -10,7 +10,7 @@ import DonatePage from "./components/donate";
 import CatCards from "./components/cards";
 
 
-export default async function AIChatPage() {
+export default async function DonatePageMain() {
   const supabase = await createClient();
   
   const {
@@ -21,26 +21,34 @@ export default async function AIChatPage() {
   if (!user) {
     return redirect("/sign-in");
   }
+
+
   const { data, error } = await supabase
     .from("username")
     .select("username")
     .eq("email", user.email)
   const displayName = data?.[0]?.username || "Guest";
-  
+  const { data:xpcount, error:xpcounterror } = await supabase
+    .from("xpcount")
+    .select("*")
+  console.log(xpcount)
   const { data: transactions, error: transactionsError } = await supabase
     .from("transactionhistory")
     .select("displayName, amount, created_at")
     .order("created_at", { ascending: false });
+  const totalAmount = transactions?.reduce((sum, transaction) => {
+      return sum + transaction.amount;
+    }, 0); // 0 is the initial value of the sum
 
-  return (
+    return (
     <main
       className="flex w-full h-screen flex-col items-center bg-[#FBFFE4] dark:bg-[#3D8D7A] text-white"
     >
-      <CatCards />
-      <DonatePage displayName={displayName}/>
+      <CatCards totalAmount={totalAmount} xpcount={xpcount} />
+      <DonatePage displayName={displayName} userEmail={user.email}/>
     {/* Transaction History Table */}
     <div className="w-full max-w-3xl mt-10 p-6 bg-[#A3D1C6] rounded-xl shadow-lg">
-        <h2 className="text-2xl font-bold text-center text-white mb-5">💰 Transaction History</h2>
+        <h2 className="text-2xl font-bold text-center text-white mb-5">Transaction History</h2>
 
         <div className="overflow-x-auto">
           <table className="w-full border-collapse rounded-lg overflow-hidden">
