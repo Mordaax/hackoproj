@@ -85,7 +85,7 @@ const Pledge = ({ userId, initialStreak, initialPoints, initialCooldown }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen dark:bg-gray-100 bg-[#B3D8A8] rounded-xl p-5">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-black">
           Combat Addiction: Make a Pledge
@@ -150,7 +150,7 @@ const Pledge = ({ userId, initialStreak, initialPoints, initialCooldown }) => {
         </div>
 
         <div className="mt-4">
-          <div className="flex items-center gap-2 text-yellow-400 text-lg">
+          <div className="flex items-center gap-2 text-yellow-500 text-lg">
             <Star size={20} />
             <span>Points are awarded based on your streak!</span>
           </div>
