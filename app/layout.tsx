@@ -42,21 +42,23 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 </div>
                 {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
               </div>
-            </nav>
+              </nav>
+            {hasEnvVars ?
             <nav className="w-full flex justify-center border-b-foreground/10 h-16 mb-5">
               <div className="flex gap-5 items-center font-semibold">
-              <Link href={"/aichat"}>Get Tips</Link>
+              <Link href={"/aichat"}>Get AI Tips</Link>
               <Link href={"/donation"}>Support Programmes</Link>
+              <Link href={"/donate"}>Donate</Link>
+              <Link href={"/leaderboard"}>Leaderboard</Link>
               <Link href={"/"}>Profile</Link>
-              <Link href={"/donationhistory"}>Donation History</Link>
-              <Link href={"/addictionhelp"}>Join Programmes</Link>
               </div>
-            </nav>
+            </nav> : <></>}
+            
             <div className="flex-1 w-full h-full flex flex-col items-center">
               {children}
             </div>
 
-            <footer className="w-full flex items-center justify-center mx-auto text-center text-xs gap-8 py-16">
+            <footer className="relative bottom-0 w-full flex items-center justify-center mx-auto text-center text-xs gap-8 py-16">
               <p>
                 A{" "}
                 <a
