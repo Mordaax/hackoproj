@@ -29,7 +29,7 @@ const Leaderboard: FC<LeaderboardProps> = ({ players }) => {
               <td className="px-4 py-2">{player.username}</td>
               <td className="px-4 py-2">{player.streak}</td>
               <td className="px-4 py-2">
-                {index < 5 && (
+                {index < 3 && (
                   <div className="flex gap-2">
                     <Star size={24} className="text-yellow-500" />
                     <Shield size={24} className="text-blue-500" />
