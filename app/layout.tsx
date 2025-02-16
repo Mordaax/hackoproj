@@ -48,9 +48,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <div className="flex gap-5 items-center font-semibold">
               <Link href={"/aichat"}>Get AI Tips</Link>
               <Link href={"/donation"}>Support Programmes</Link>
-              <Link href={"/"}>Profile</Link>
               <Link href={"/donate"}>Donate</Link>
-              <Link href={"/addictionhelp"}>Join Programmes</Link>
+              <Link href={"/leaderboard"}>Leaderboard</Link>
+              <Link href={"/"}>Profile</Link>
               </div>
             </nav> : <></>}
             
