@@ -37,11 +37,11 @@ export default async function LeaderboardPage() {
   }
 
   // Log the full usersData to inspect it
-  console.log("Users Data:", usersData); 
+
 
   // Log just the usernames to inspect them individually
   const usernames = usersData?.map(user => user.username);
-  console.log("Usernames:", usernames);
+
 
   // Step 5: Combine leaderboard data with corresponding usernames
   const playersToDisplay = leaderboardData?.map(entry => {

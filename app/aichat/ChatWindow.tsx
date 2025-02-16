@@ -39,7 +39,7 @@ export default function ChatWindow({ userAgent }: { userAgent: string }) {
 
       // Replace "Thinking..." with actual response
       setMessages((prev) =>
-        prev.map((msg) =>
+        prev.map((msg:any) =>
           msg.isLoading
             ? {
                 text: data.reply || "I couldn't generate a response.",
@@ -51,7 +51,7 @@ export default function ChatWindow({ userAgent }: { userAgent: string }) {
     } catch (error) {
       console.error("Error sending message:", error);
       setMessages((prev) =>
-        prev.map((msg) =>
+        prev.map((msg:any) =>
           msg.isLoading
             ? { text: "Error fetching response.", sender: "ai" }
             : msg

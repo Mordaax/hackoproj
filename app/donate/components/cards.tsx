@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 
 
-function CatCards(props) {
+function CatCards(props:any) {
 
   const [displayName, setDisplayName] = useState("Guest");
   const [transactions, setTransactions] = useState([]);
@@ -15,7 +15,7 @@ function CatCards(props) {
     "Counseling Services Fund": xpcount[0]["xp3"],
     "General Recovery Fund": xpcount[0]["xp4"],
   });
-  const calculatePercentage = (amount) => {
+  const calculatePercentage = (amount:number) => {
     const totalXP = Object.values(categoryTotals).reduce((sum, xp) => sum + xp, 0);
     return (amount / totalXP) * 100;
   };

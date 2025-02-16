@@ -4,7 +4,7 @@ import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import TransactionPage from "./components/transaction";
 
-export default async function ProtectedPage({ programTitle }: { programTitle: string }) {
+export default async function ProtectedPage() {
   const supabase = await createClient();
 
   const {

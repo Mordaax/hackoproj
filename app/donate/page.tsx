@@ -31,7 +31,7 @@ export default async function DonatePageMain() {
   const { data:xpcount, error:xpcounterror } = await supabase
     .from("xpcount")
     .select("*")
-  console.log(xpcount)
+
   const { data: transactions, error: transactionsError } = await supabase
     .from("transactionhistory")
     .select("displayName, amount, created_at")
