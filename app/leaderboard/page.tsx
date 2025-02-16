@@ -70,7 +70,7 @@ export default async function LeaderboardPage() {
   const finalPlayers = playersToDisplay.length ? playersToDisplay : dummyPlayers;
 
   return (
-    <main className="flex w-full h-screen flex-col items-center py-16 bg-gray-100">
+    <main className="flex w-full h-screen flex-col items-center py-16">
       <Leaderboard players={finalPlayers} />
     </main>
   );

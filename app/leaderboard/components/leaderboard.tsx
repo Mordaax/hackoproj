@@ -18,17 +18,17 @@ const Leaderboard: FC<LeaderboardProps> = ({ players }) => {
       <table className="w-full table-auto text-left border-collapse">
         <thead>
           <tr>
-            <th className="px-4 py-2 border-b">Username</th>
-            <th className="px-4 py-2 border-b">Streak</th>
-            <th className="px-4 py-2 border-b">Badges</th>
+            <th className="px-4 py-2 border-b dark:text-black">Username</th>
+            <th className="px-4 py-2 border-b dark:text-black">Streak</th>
+            <th className="px-4 py-2 border-b dark:text-black">Badges</th>
           </tr>
         </thead>
         <tbody>
           {players.map((player, index) => (
             <tr key={index} className="border-b">
-              <td className="px-4 py-2">{player.username}</td>
-              <td className="px-4 py-2">{player.streak}</td>
-              <td className="px-4 py-2">
+              <td className="px-4 py-2 dark:text-black">{player.username}</td>
+              <td className="px-4 py-2 dark:text-black">{player.streak}</td>
+              <td className="px-4 py-2 dark:text-black">
                 {index < 3 && (
                   <div className="flex gap-2">
                     <Star size={24} className="text-yellow-500" />

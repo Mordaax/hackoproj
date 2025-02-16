@@ -31,19 +31,19 @@ const Home: NextPage = () => {
   }, [targetCount]);
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen text-white px-4 py-16">
+    <main className="flex flex-col items-center justify-center min-h-screen dark:text-white white:text-black px-4 py-16">
       <div className="max-w-2xl p-8 rounded-2xl shadow-lg text-center space-y-6">
         {/* Heading */}
-        <h1 className="text-5xl font-bold text-black mb-4">
+        <h1 className="text-5xl font-bold mb-4">
           <Bean className="inline-block mr-2 text-yellow-500" /> Heng Ong Huat Foundation
         </h1>
         
-        <p className="text-lg text-gray-600 mb-4">
+        <p className="text-lg mb-4">
           Helping individuals recover and rebuild their lives. <Star className="inline-block ml-2 text-yellow-500" />
         </p>
 
         {/* Animated counter */}
-        <p className="text-xl font-semibold text-gray-700">
+        <p className="text-xl font-semibold">
           <span className="text-8xl font-bold">
             {authCount} {/* Directly show the number as it increments */}
           </span>{" "}
@@ -67,7 +67,7 @@ const Home: NextPage = () => {
             Donate <Heart />
           </button>
         </div>
-        <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center">
+        <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center text-grey-400">
             Fighting Addiction with{" "}
             <span className="font-bold">Interledger</span> and{" "}
             <span className="font-bold" rel="noreferrer">
@@ -78,7 +78,7 @@ const Home: NextPage = () => {
       </div>
 
       {/* Additional Footer */}
-      <div className="mt-16 text-center text-lg text-gray-600">
+      <div className="mt-16 text-center text-lg">
         <p>Your support can help make a real difference in someone's recovery journey. <BicepsFlexedIcon className="inline-block ml-2 text-yellow-500" /></p>
       </div>
     </main>
