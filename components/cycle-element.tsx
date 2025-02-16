@@ -5,7 +5,7 @@ import { Trees } from "lucide-react";
 const RandomContent = () => {
   const contentArray = [
     {
-      text: "Goon to the rhythm",
+      text: "Breathe to the rhythm",
       element: <PulsingCircle />,
     },
     {
