@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 interface DonatePageProps {
   displayName: string;
+  userEmail:string
 }
-export default function DonatePage({ displayName }: DonatePageProps) {
+export default function DonatePage({ displayName,userEmail }: DonatePageProps) {
   const [sendingWalletAddressUrl, setSendingWalletAddressUrl] = useState("");
   const [amount, setAmount] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -31,7 +32,7 @@ export default function DonatePage({ displayName }: DonatePageProps) {
         },
         body: JSON.stringify({
           sendingWalletAddressUrl,
-          email: "cepic77@gmail.com", // Use email from user object
+          email: userEmail, // Use email from user object
           amount,
           displayName
         }),

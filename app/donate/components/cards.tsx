@@ -2,17 +2,19 @@
 import React, { useEffect, useState } from 'react'
 
 
-function CatCards() {
+function CatCards(props) {
 
   const [displayName, setDisplayName] = useState("Guest");
   const [transactions, setTransactions] = useState([]);
-  const [categoryTotals, setCategoryTotals] = useState({
-    "Smoke Recovery Program": 900,
-    "Gambling Recovery Program": 400,
-    "Counseling Services Fund": 300,
-    "General Recovery Fund": 300,
-  });
+  const [totalAmount, settotalAmount] = useState(props.totalAmount)
+  const [xpcount, setxpcount] = useState(props.xpcount)
 
+  const [categoryTotals, setCategoryTotals] = useState({
+    "Smoke Recovery Program": xpcount[0]["xp1"],
+    "Gambling Recovery Program": xpcount[0]["xp2"],
+    "Counseling Services Fund": xpcount[0]["xp3"],
+    "General Recovery Fund": xpcount[0]["xp4"],
+  });
   const calculatePercentage = (amount) => {
     const totalXP = Object.values(categoryTotals).reduce((sum, xp) => sum + xp, 0);
     return (amount / totalXP) * 100;
@@ -25,7 +27,7 @@ function CatCards() {
 
 
         <h3 className="text-xl font-bold mb-2 text-white dark:text-gray-700">{category}</h3>
-        <p className="text-lg dark:text-gray-700">Total: ${amount}</p>
+        <p className="text-lg dark:text-gray-700">Total: ${parseFloat((calculatePercentage(amount).toFixed(1)/100*totalAmount).toFixed(2))}</p>
         <p className="text-lg dark:text-gray-600">Total: {amount} XP</p>
         <p className="text-md dark:text-gray-500">
           Percentage: {calculatePercentage(amount).toFixed(1)}%
