@@ -31,7 +31,7 @@ export default async function ProtectedPage() {
 
       <div className="container flex grow flex-col gap-20 px-4 py-16">
         <h1 className="mt-20 text-center text-3xl font-extrabold tracking-tight text-white">
-          I am a gooning addict.....
+          I am a  ______  addict.....
         </h1>
         {<div className="flex flex-col items-center gap-4">
           <Link
