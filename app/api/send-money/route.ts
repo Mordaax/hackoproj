@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
 
+
 export async function POST(req: Request) {
+  const url=process.env.backend_url
   try {
     const { sendingWalletAddressUrl, email, amount,displayName } = await req.json();
     if (!sendingWalletAddressUrl || !email || !amount) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    const response = await fetch("http://localhost:3002/send-money", {
+    const response = await fetch(url+"/send-money", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
